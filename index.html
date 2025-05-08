@@ -1,0 +1,804 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Slimms Law Firm</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".menu").click(function(e) {
+                e.stopPropagation(); // Prevent click from bubbling up to document
+
+                if ($(".navigation").hasClass("open")) {
+                    // If open, close it
+                    $(".navigation").removeClass("open");
+                } else {
+                    // Open the menu
+                    $(".navigation").addClass("open");
+
+                    var menuitem = $(".li-menu .navigator").length;
+
+                    for (var i = 1; i <= menuitem; i++) {
+                        $(".li-menu .navigator:nth-child(" + (i + 1) + ")") // +1 to skip close icon
+                            .css("transition", "all .1s linear ." + i + "s");
+                    }
+
+                    $(".navigation").css("transition", "all .2s linear .0s");
+                }
+            });
+
+            $("#close-icon-cross").click(function(e) {
+                e.stopPropagation();
+                $(".navigation").removeClass("open");
+            });
+
+            // Close menu when clicking outside .li-menu
+            $(document).click(function(e) {
+                if (!$(e.target).closest(".li-menu").length && $(".navigation").hasClass("open")) {
+                    $(".navigation").removeClass("open");
+                }
+            });
+        });
+    </script>
+
+
+    <style>
+        .nav {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 15px;
+            margin: 10px;
+            background: transparent;
+            z-index: 9;
+            font-family: "Raleway", Helvetica, sans-serif;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            /* box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+            */
+            border: 1px solid;
+            border-radius: 0.325rem;
+        }
+        
+        .menu img {
+            width: 25px;
+            height: 25px;
+            margin-left: 20px;
+        }
+        
+        .navigation {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 8;
+            transform: scaleY(0);
+            background: #00000080;
+            transform-origin: top;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: all 0.2s cubic-bezier(0, 0.32, 0.36, 0.97);
+        }
+        
+        .navigator:hover {
+            color: #000 !important;
+            box-shadow: inset 0 0 0 2px #000;
+        }
+        
+        .navigator {
+            margin: 10px;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            -moz-transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+            -webkit-transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+            -ms-transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+            transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+            background-color: transparent;
+            border-radius: 0.325rem;
+            border: 0;
+            box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+            color: #000000 !important;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Raleway", Helvetica, sans-serif;
+            font-size: 0.6rem;
+            font-weight: 600;
+            height: 3rem;
+            letter-spacing: 0.175em;
+            line-height: 3rem;
+            padding: 0 2rem;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        
+        .li-menu {
+            display: flex;
+            flex-direction: column;
+            background-color: #49fcd4;
+            padding: 70px 50px 70px 50px;
+            border-radius: 0.325rem;
+        }
+        
+        .navigation.open {
+            transform: scaleY(1);
+        }
+        
+        .navigation.open .navigator {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+        
+        @media (min-width: 320px) and (max-width: 767px) {
+            .navigator {
+                margin: 10px;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                -ms-appearance: none;
+                appearance: none;
+                -moz-transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+                -webkit-transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+                -ms-transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+                transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+                background-color: transparent;
+                border-radius: 0.325rem;
+                border: 0;
+                box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+                color: #000000 !important;
+                cursor: pointer;
+                display: inline-block;
+                font-family: "Raleway", Helvetica, sans-serif;
+                font-size: 0.6rem;
+                font-weight: 600;
+                height: 3rem;
+                letter-spacing: 0.175em;
+                line-height: 3rem;
+                padding: 0 2rem;
+                text-align: center;
+                text-decoration: none;
+                text-transform: uppercase;
+                white-space: nowrap;
+            }
+            .menu {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                right: 0;
+                padding: 20px;
+                background: #49fcd4;
+                background-image: url(/images/download\ \(1\).svg);
+                font-family: "Raleway", Helvetica, sans-serif;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 700;
+                text-align: center;
+                box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+                border-radius: 0.325rem;
+            }
+            .menu img {
+                width: 25px;
+                height: 25px;
+                margin-left: 20px;
+            }
+            #close-icon-cross {
+                cursor: pointer;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .navigator {
+                margin: 10px;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                -ms-appearance: none;
+                appearance: none;
+                -moz-transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+                -webkit-transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+                -ms-transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+                transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+                background-color: transparent;
+                border-radius: 0.325rem;
+                border: 0;
+                box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+                color: #000000 !important;
+                cursor: pointer;
+                display: inline-block;
+                font-family: "Raleway", Helvetica, sans-serif;
+                font-size: 0.6rem;
+                font-weight: 600;
+                height: 3rem;
+                letter-spacing: 0.175em;
+                line-height: 3rem;
+                padding: 0 2rem;
+                text-align: center;
+                text-decoration: none;
+                text-transform: uppercase;
+                white-space: nowrap;
+            }
+            .menu {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                right: 0;
+                padding: 20px;
+                background: #49fcd4;
+                z-index: 9;
+                font-family: "Raleway", Helvetica, sans-serif;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 700;
+                text-align: center;
+                box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+                border-radius: 0.325rem;
+            }
+            .menu img {
+                width: 25px;
+                height: 25px;
+                margin-left: 20px;
+            }
+        }
+        
+        .close-icon {
+            width: 15px;
+            height: 15px;
+            position: relative;
+            top: -50px;
+            right: 0px;
+            left: 100%;
+            margin-top: revert-layer;
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+    <div class="nav">
+        <div class="menu"> MENU <img src="/images/menu (1).png" alt="" /></div>
+        <div class="navigation">
+
+            <div class="li-menu">
+                <img id="close-icon-cross" class="close-icon" src="images/close.png" alt="" />
+                <button id="home" class="navigator active">Home</button>
+                <button id="about" class="navigator">About Us</button>
+                <button id="caseStudies" class="navigator">Case Studies</button>
+                <button id="Blog" class="navigator">Blog</button>
+                <button id="contact" class="navigator">Contact</button>
+            </div>
+        </div>
+    </div>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Intro -->
+        <section class="intro">
+            <header>
+                <h1>Slimms Law Firm</h1>
+                <p>Specialized Immigration Lawyers<br>Spousal Sponsorship / Litigation
+                    <!-- / Retirement Visa / Foreign Citizenship / and more -->
+                </p>
+                <ul class="actions">
+                    <li><a href="#contact" class="button large scrolly" target="_blank"><span style="border:2px;">Get in Touch</span></a></li>
+                    <!--<li><a href="#first" class="arrow scrolly"><span class="label">Next</span></a></li>-->
+                </ul>
+            </header>
+            <div class="content">
+                <span class="image fill" data-position="center"><img src="images/pic01.jpg" alt="Simon Labelle Immigration Lawyer" /></span>
+            </div>
+        </section>
+
+        <!-- Section -->
+        <section id="first">
+            <header>
+                <h2>Reuniting Families Beyond Borders since&nbsp;2013</h2>
+            </header>
+            <div class="content">
+                <h2>Immigration Expertise</h2>
+                <p><strong>Our law practice focuses on Family Reunification:</strong> the sponsorship of foreign spouses, common-law partners and children, litigation and related legal issues for Canada and Quebec.
+                    <!--Furthermore we assist Canadians obtaining secondary citizenships through mariage and retirement visas for popular destinations such as the Dominican Replublic.-->
+
+                    <span class="image main"><img src="images/pic02.jpg" alt="" /></span>
+            </div>
+        </section>
+
+        <!-- Section -->
+        <section>
+            <header>
+                <h2>Why Us?</h2>
+            </header>
+            <div class="content">
+                <h2>Experienced Team</h2>
+                <p>At Slimms Law Firm, <strong>all cases are handled by senior attorneys with over 10 years of law practice.</strong> Everyone is at the top of its game to deliver you results and peace of mind.</p>
+
+                <p>
+                    <ul class="feature-icons">
+                        <li class="icon solid fa-laptop">Virtual Services</li>
+                        <li class="icon solid fa-bolt">Prompt Replies</li>
+                        <li class="icon solid fa-signal">Payment Plans</li>
+                        <li class="icon solid fa-cog">Specialized Lawyers</li>
+                        <li class="icon solid fa-map-marker-alt">Foreign Offices</li>
+                        <li class="icon solid fa-code">Tech Savvy</li>
+                    </ul>
+                </p>
+                <br>
+
+                <h2>Human & Approachable</h2>
+
+                <h5>Attorney Simon Labelle, Canada:</h5>
+                <blockquote>"<strong>Money should never get in the way of being reunited with your loved ones.</strong> We are committed to be the most flexible law firm when it comes to financing your family reunification through payment plans and alternative options.
+                    Period."
+                </blockquote>
+
+                <h5>Attorney Rodney Gonzalez, Colombia:</h5>
+                <blockquote>"Most of our team members went throught the immigration hurdles themselves. So believe me: we can relate to your situation. This is why we spare no efforts. <strong>We truly understand that your family is the priority.</strong>"</blockquote>
+
+                <h5>Attorney Vianey Yturri, Mexico:</h5>
+                <blockquote>"Immigration is full of uncertainties due to its politicisation. This is stressful for families awaiting a decison.<strong> So we strive to be more than lawyers, we strive to be your moral support during difficult times. We are here for you.</strong>"</blockquote>
+
+            </div>
+        </section>
+
+        <!-- Section -->
+        <section>
+            <header>
+                <h2>What our customers are saying about us</h2>
+            </header>
+            <div class="content">
+                <!--<p><strong>A team of experienced lawyers</strong> is one that can foresee and fix legal issues before they arise. At Slimms Law Firm, we hand pick senior attorneys with over 10 years practice. Everyone is at the top of its games to deliver you results and peace of mind.</p>-->
+
+                <!-- Section -->
+                <section>
+                    <header>
+                        <h3>Vasco Castela</h3>
+                        <p>"I cannot understate the importance of working with a supportive lawyer with great people skills such as Simon. This was particularly important for me after the hardship I experienced due to my immigration troubles."</p>
+
+                        <h3>Aurelie t'Kint</h3>
+                        <p>"Compétent, professionnel, humain, à l’écoute, disponible et efficace; Simon Labelle est l’avocat dont vous avez besoin. Merci Simon pour votre aide et vos conseils."</p>
+
+                        <h3>Tit Brecelj</h3>
+                        <p>"I am a Slovene married to a Canadian. After one year as a visitor my partner and I decided to apply for my permanent residence. We collected and filled all the forms and add photos and other evidences. The whole folder weighted
+                            one kilo. We sent and waited. The news came that our application may be rejected because some proof about our relationship was missing. We contacted Simon for advice, we collected additional informations and the application
+                            went through rapidly. I even got my permanent residents confirmation 13 months earlier than marked on CIC homepage!"</p>
+
+                        <h3>Patty Perdomo</h3>
+                        <p>"I’m blessed that God put on my way this wonderful person in this stressful journey. After meeting with one of the “best immigration lawyer” in Montreal and leaving his office with no hope about my case I searched online an immigration
+                            lawyer near me, [...] Since the very first day he showed us patience, professionalisms, helpful, very accommodating and he accepted my case. [...] Today I received the confirmation of my PR! I’m very happy and thankful to have
+                            found such a wonderful lawyer and human being."</p>
+
+                        <h3>Stephane G.</h3>
+                        <p>"Il a rapidement compris les particularité de notre cas et il a su nous conseiller sur les options que nous avions et la meilleur démarche a suivre. Il nous as tenus au courant tout au long du processus et il s’est toujours assuré
+                            que notre dossier avançait rapidement et sans problèmes. Il a aussi toujours été franc et exact quant au temps et délais pour la progression de nos dossiers ainsi que les différent coûts associé. Aucune mauvaise surprise."</p>
+
+                        <h3>Justine</h3>
+                        <p>"First, I will start by saying thank you for the work well done! I had alot of problems with my immigration application and Simon helped me to overcome the stress I was experiencing at the time! [...] My husband and I decided to
+                            consult a lawyer to help us. [...] We knew right from the first meeting with him that he was going to help us. He was welcoming, empathetic and a good listener. He knows how to calm you down from all the stress the immigration
+                            process comes with. He was always available for any questions [...]."</p>
+
+                        <h3>Sarah Kennedy</h3>
+                        <p>"Aside from knowing the intricacies of the immigration application process inside and out, Simon is also amazing in terms of encouragement and support throughout what is an unavoidably stressful process. I had many questions and
+                            concerns and he had endless patience and respect when providing explanations. Also, his answers were excellent and accurate. This is a lawyer that goes over and above what you will expect. [...]"</p>
+
+                    </header>
+
+                    <div class="content">
+                        <h1>Hundreds of couples reunited.</h1>
+                        <p>
+                            <!--We vowed that no family would remain apart as long as we breathe. We take care of families and couples looking to be reunited like no one else.-->When immigration gets complicated, you can count on us to cut through red tapes and stand by your side, sparing no effort to get to the finishing line. <strong>We treat your family like ours.</strong></p>
+
+
+                        <div class="gallery">
+                            <a href="images/gallery/clients/Justine-Francis.jpg" class="landscape"><img src="images/gallery/clients/Justine-Francis.jpg" alt="" /></a>
+                            <a href="images/gallery/clients/Phatcha-Felix.jpg"><img src="images/gallery/clients/Phatcha-Felix.jpg" alt="" /></a>
+                            <a href="images/gallery/clients/Raphael-Danielle.jpg"><img src="images/gallery/clients/Raphael-Danielle.jpg" alt="" /></a>
+                            <a href="images/gallery/clients/Hugo-Charisma.jpg" class="landscape"><img src="images/gallery/clients/Hugo-Charisma.jpg" alt="" /></a>
+                            <a href="images/gallery/clients/Robert-Erica.jpg"><img src="images/gallery/clients/Robert-Erica.jpg" alt="" /></a>
+                            <a href="images/gallery/clients/Elie-Janice.jpg"><img src="images/gallery/clients/Elie-Janice.jpg" alt="" /></a>
+                            <a href="images/gallery/clients/Ala-Lungu.jpg" class="landscape"><img src="images/gallery/clients/Ala-Lungu.jpg" alt="" /></a>
+                            <a href="images/gallery/clients/Cynthia-Jordan.jpg"><img src="images/gallery/clients/Cynthia-Jordan.jpg" alt="" /></a>
+                            <a href="images/gallery/clients/Cedric-Keene.PNG"><img src="images/gallery/clients/Cedric-Keene.PNG" alt="" /></a>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </section>
+
+        <!-- Section -->
+        <section id="contact">
+            <header>
+                <h2>Everything starts by a consultation.</h2>
+            </header>
+            <div class="content">
+                <p><strong>Kick back, relax and enjoy life</strong> while your lawyer manages the details.
+                    <ul class="actions">
+                        <li><a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ17CcOp_-AhoejOnD16NJ_0S91qolQOq9r92r7Drxw8jY2JpjCX8iVogEyqiTvyf82YpUxp7duL" class="button primary large">Schedule a Consultation</a></li>
+                        <!--<li><a href="about.slimms.ca" class="button large" target="_blank">Learn More</a></li>-->
+                    </ul>
+            </div>
+        </section>
+
+        <!-- Elements -->
+        <!--
+					<section>
+						<header>
+							<h2>Elements</h2>
+						</header>
+						<div class="content">
+
+							<section>
+								<header>
+									<h3>Text</h3>
+								</header>
+								<div class="content">
+									<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
+									This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
+									This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
+									<hr />
+									<h2>Heading Level 2</h2>
+									<h3>Heading Level 3</h3>
+									<h4>Heading Level 4</h4>
+									<h5>Heading Level 5</h5>
+									<hr />
+									<h5>Blockquote</h5>
+									<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
+									<h5>Preformatted</h5>
+									<pre><code>i = 0;
+
+while (!deck.isInOrder()) {
+  print 'Iteration ' + i;
+  deck.shuffle();
+  i++;
+}
+
+print 'Sorted in ' + i + ' iterations.';</code></pre>
+								</div>
+							</section>
+
+							<section>
+								<header>
+									<h3>Lists</h3>
+								</header>
+								<div class="content">
+
+									<h4>Unordered</h4>
+									<ul>
+										<li>Dolor pulvinar etiam.</li>
+										<li>Sagittis adipiscing.</li>
+										<li>Felis enim feugiat.</li>
+									</ul>
+
+									<h4>Alternate</h4>
+									<ul class="alt">
+										<li>Dolor pulvinar etiam.</li>
+										<li>Sagittis adipiscing.</li>
+										<li>Felis enim feugiat.</li>
+									</ul>
+
+									<h4>Ordered</h4>
+									<ol>
+										<li>Dolor pulvinar etiam.</li>
+										<li>Etiam vel felis viverra.</li>
+										<li>Felis enim feugiat.</li>
+										<li>Dolor pulvinar etiam.</li>
+										<li>Etiam vel felis lorem.</li>
+										<li>Felis enim et feugiat.</li>
+									</ol>
+									<h4>Icons</h4>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+									</ul>
+
+									<h4>Actions</h4>
+									<ul class="actions">
+										<li><a href="#" class="button primary">Default</a></li>
+										<li><a href="#" class="button">Default</a></li>
+									</ul>
+									<ul class="actions stacked">
+										<li><a href="#" class="button primary">Default</a></li>
+										<li><a href="#" class="button">Default</a></li>
+									</ul>
+								</div>
+							</section>
+
+							<section>
+								<header>
+									<h3>Table</h3>
+								</header>
+								<div class="content">
+									<h4>Default</h4>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Price</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Item One</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Two</td>
+													<td>Vis ac commodo adipiscing arcu aliquet.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Three</td>
+													<td> Morbi faucibus arcu accumsan lorem.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Four</td>
+													<td>Vitae integer tempus condimentum.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Five</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<td colspan="2"></td>
+													<td>100.00</td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+
+									<h4>Alternate</h4>
+									<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Price</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Item One</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Two</td>
+													<td>Vis ac commodo adipiscing arcu aliquet.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Three</td>
+													<td> Morbi faucibus arcu accumsan lorem.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Four</td>
+													<td>Vitae integer tempus condimentum.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Five</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<td colspan="2"></td>
+													<td>100.00</td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</section>
+
+							<section>
+								<header>
+									<h3>Buttons</h3>
+								</header>
+								<div class="content">
+									<ul class="actions">
+										<li><a href="#" class="button primary">Primary</a></li>
+										<li><a href="#" class="button">Default</a></li>
+									</ul>
+									<ul class="actions">
+										<li><a href="#" class="button large">Large</a></li>
+										<li><a href="#" class="button">Default</a></li>
+										<li><a href="#" class="button small">Small</a></li>
+									</ul>
+									<ul class="actions">
+										<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
+										<li><a href="#" class="button icon solid fa-download">Icon</a></li>
+									</ul>
+									<ul class="actions">
+										<li><span class="button primary disabled">Disabled</span></li>
+										<li><span class="button disabled">Disabled</span></li>
+									</ul>
+								</div>
+							</section>
+
+							<section>
+								<header>
+									<h3>Form</h3>
+								</header>
+								<div class="content">
+									<form method="post" action="#">
+										<div class="fields">
+											<div class="field half">
+												<label for="demo-name">Name</label>
+												<input type="text" name="demo-name" id="demo-name" value="" placeholder="Jane Doe" />
+											</div>
+											<div class="field half">
+												<label for="demo-email">Email</label>
+												<input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld" />
+											</div>
+											<div class="field">
+												<label for="demo-category">Category</label>
+												<select name="demo-category" id="demo-category">
+													<option value="">-</option>
+													<option value="1">Manufacturing</option>
+													<option value="1">Shipping</option>
+													<option value="1">Administration</option>
+													<option value="1">Human Resources</option>
+												</select>
+											</div>
+											<div class="field half">
+												<input type="radio" id="demo-priority-low" name="demo-priority" checked>
+												<label for="demo-priority-low">Low</label>
+											</div>
+											<div class="field half">
+												<input type="radio" id="demo-priority-high" name="demo-priority">
+												<label for="demo-priority-high">High</label>
+											</div>
+											<div class="field half">
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Email me a copy</label>
+											</div>
+											<div class="field half">
+												<input type="checkbox" id="demo-human" name="demo-human" checked>
+												<label for="demo-human">Not a robot</label>
+											</div>
+											<div class="field">
+												<label for="demo-message">Message</label>
+												<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+											</div>
+										</div>
+										<ul class="actions">
+											<li><input type="submit" value="Send Message" class="primary" /></li>
+											<li><input type="reset" value="Reset" /></li>
+										</ul>
+									</form>
+								</div>
+							</section>
+
+						</div>
+					</section>
+				-->
+
+        <!-- Section -->
+        <section id="contact">
+            <header>
+                <h2>Get in touch</h2>
+            </header>
+            <div class="content">
+                <a href=https://www.google.com/maps/search/slimms+immigration/@45.6431211,-73.9536391,11z?entry=ttu&g_ep=EgoyMDI1MDQyMS4wIKXMDSoASAFQAw%3D%3D " target="_blank "><span class="image fill " data-position="center "><img src="images/map.png " alt="Slimms Immigration
+                    Map " /></span></a>
+						</div>
+						<!--<div class="content ">
+							<p><strong>Tell us about your situation</strong> and we will tell you how we can help.</p>
+							<form>
+								<div class="fields ">
+									<div class="field half ">
+										<input type="text " name="name " id="name " placeholder="Name " />
+									</div>
+									<div class="field half ">
+										<input type="email " name="email " id="email " placeholder="Email " />
+									</div>
+									<div class="field ">
+										<textarea name="message " id="message " placeholder="Message " rows="7 "></textarea>
+									</div>
+								</div>
+								<ul class="actions ">
+									<li><input type="submit " value="Send Message " class="button primary " /></li>
+								</ul>
+							</form>
+						</div>-->
+						<footer>
+							<ul class="items ">
+								<li>
+									<h3>Email</h3>
+									<!-- <span id="obf "><script>document.getElementById("obf ").innerHTML="<n uers=\ "znvygb:vasb@fyvzzf.pn\" gnetrg=\ "_oynax\">vasb@fyvzzf.pn</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c
+                <="Z" ?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});document.body.appendChild(eo);</script>
+                    <noscript><span style="unicode-bidi:bidi-override;direction:rtl;">ac.smmils@ofni</span></noscript></span> -->
+                    <span id="obf"></span>
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var encoded = "<n uers=\"znvygb:vasb@fyvzzf.pn\" gnetrg=\"_oynax\">vasb@fyvzzf.pn</n>";
+                            var decoded = encoded.replace(/[a-zA-Z]/g, function(c) {
+                                return String.fromCharCode(
+                                    (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26
+                                );
+                            });
+                            document.getElementById("obf").innerHTML = decoded;
+                        });
+                    </script>
+
+                    <noscript>
+										<span style="unicode-bidi:bidi-override;direction:rtl;">ac.smmils@ofni</span>
+										</noscript>
+                    </li>
+                    <li>
+                        <h3>Phone</h3>
+                        <a href="#">(450) 990-0555</a><br>
+                        <a href="#">(Canada Toll Free) 1-844-990-0555</a>
+                    </li>
+                    <li>
+                        <h3>Head Office</h3>
+                        <span>300-2 Boulevard Cure-Labelle, Sainte-Therese<br>Quebec, J7E2W9, Canada</span>
+                    </li>
+                    <li>
+                        <h3>Elsewhere</h3>
+                        <ul class="icons">
+                            <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                            <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                            <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                            <li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                            <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                            <li><a href="#" class="icon brands fa-codepen"><span class="label">Codepen</span></a></li>
+                        </ul>
+                    </li>
+                    </ul>
+                    </footer>
+        </section>
+
+        <!-- Copyright -->
+        <div class="copyright">&copy; Slimms Law Firm. All rights reserved.<br><a href="https://slimms.ca/privacy-policy.html" target="_blank">Terms & Privacy Policy</a>.</div>
+
+        </div>
+
+        <!-- Scripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.scrolly.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
